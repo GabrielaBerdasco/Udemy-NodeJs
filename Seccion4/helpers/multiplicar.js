@@ -10,10 +10,13 @@ const createFile = async (base, list, hasta = 10) => {
 
         for(let i = 1; i <= hasta; i++){
             data += `${base} * ${i} = ${base * i}\n`;
-            consola += `${base} ${'*'.cyan} ${i} ${ '='.magenta } ${base * i}\n`;   
+            consola += `${base} ${'*'.cyan} ${i} ${ '='.cyan } ${base * i}\n`;   
         }
 
         if(list){
+            console.log(`\n=============================`.cyan);
+            console.log(` Tabla de multiplicar del ${base}`.bgMagenta);
+            console.log(`=============================\n`.cyan);
             console.log(consola);
         }
 
