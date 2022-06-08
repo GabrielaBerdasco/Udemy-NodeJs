@@ -16,26 +16,26 @@ export const showMessages = () => {
         console.log(`${chalk.cyan('0.')} Finalizar programa \n`);
 
 
-        const rl = readline.createInterface({ input, output})
+        const rl = readline.createInterface({ input, output});
         rl.question(`${chalk.bgCyan('Seleccione una opción:')} `, (answer) => {
             rl.close();
             resolve(answer);
-        })
+        });
 
-    })
+    });
 }
 
-export const pausa = () => {
+export const pause = () => {
 
     return new Promise(resolve => {
 
-        const rl = readline.createInterface({ input, output})
+        const rl = readline.createInterface({ input, output});
         rl.question(chalk.magenta('\nPresione ENTER para continuar...\n'), () => {
             rl.close();
             resolve();
-        })
+        });
 
-    })
+    });
 
 }
 

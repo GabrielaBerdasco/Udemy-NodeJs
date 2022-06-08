@@ -5,7 +5,7 @@ const menuOpts = [
     { 
         type: 'list',
         name: 'option',
-        message: 'Seleccione una opción:',
+        message: `${chalk.bgCyan('\nSeleccione una opción:\n')}`,
         choices: [
             {
                 value: '1',
@@ -45,6 +45,12 @@ export const inquirerMenu = async() => {
     return option
 }
 
-export const pause = () => {
-
+export const pause = async() => {
+    await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'pause',
+            message: `Presione ${chalk.bgCyan('ENTER')} para continuar...`
+        }
+    ])
 }
