@@ -9,31 +9,31 @@ const menuOpts = [
         choices: [
             {
                 value: '1',
-                name: '1. Crear una nueva tarea'
+                name: `${chalk.cyan( '1.' )} Crear una nueva tarea`
             },
             {
                 value: '2',
-                name: '2. Listar tareas'
+                name: `${chalk.cyan( '2.' )} Listar tareas`
             },
             {
                 value: '3',
-                name: '3. Lista tareas completadas'
+                name: `${chalk.cyan( '3.' )} Lista tareas completadas`
             },
             {
                 value: '4',
-                name: '4. Lista tareas pendientes'
+                name: `${chalk.cyan( '4.' )} Lista tareas pendientes`
             },
             {
                 value: '5',
-                name: '5. Completar tarea(s)'
+                name: `${chalk.cyan( '5.' )} Completar tarea(s)`
             },
             {
                 value: '6',
-                name: '6. Eliminar tareas'
+                name: `${chalk.cyan( '6.' )} Eliminar tareas`
             },
             {
                 value: '0',
-                name: '0. Finalizar programa'
+                name: `${chalk.cyan( '0.' )} Finalizar programa`
             }
         ]
     },
@@ -54,3 +54,25 @@ export const pause = async() => {
         }
     ])
 }
+
+export const readInput = async( message ) => {
+    const question = [
+        {
+            type: 'input',
+            name: 'description',
+            message,
+            validate( value ){
+                if (value.length) {
+                    return true
+                } else {
+                    return 'Debe ingresar un valor'
+                }
+            }
+        }
+    ]
+    
+    const { description } = await inquirer.prompt(question)
+
+    return description
+}
+
