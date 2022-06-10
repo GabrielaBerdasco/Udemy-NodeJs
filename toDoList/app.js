@@ -2,21 +2,26 @@ import chalk from 'chalk'
 
 //import { showMessages, pause } from './helpers/messages.js'
 import { inquirerMenu, pause, readInput } from './helpers/inquirer.js'
-import saveFile from './helpers/saveFile.js'
 import Tasks from './models/tasks.js'
+import { saveFile, readDB } from './helpers/saveFile.js'
 
 console.clear()
 
 const main = async() => {
     
     let opt = ''
-    let tasks = new Tasks();
+    const tasks = new Tasks();
+    const db = readDB();
+    
+    if( db ) {
+        tasks.loadTasksFromArr(db);
+    }
 
     do {
         //opt = await showMessages()
-
+        console.clear()
+        
         opt = await inquirerMenu()
-        console.log(chalk.cyan(opt))
         
         switch (opt) {
             case '1':
@@ -24,11 +29,19 @@ const main = async() => {
                 tasks.add(description)
                 break;
             case '2':
-                console.log( tasks.listArr );
+                tasks.showList()
                 break;
+            case '3':
+                tasks.listCompleted()
+                break;
+            case '4':
+                tasks.listCompleted(false)
+                break;
+
         }   
 
-        saveFile('./db/tasks.json', tasks.listArr)
+
+        saveFile(tasks.listArr)
 
         await pause()
 
