@@ -19,6 +19,13 @@ class Tasks {
         this._list = {};
     }
 
+    deleteTask(id){
+        if(this._list[id]){
+            delete this._list[id];
+        }
+        console.log('Tarea eliminada');
+    }
+
     add(description = ''){
         const task = new Task(description);
         this._list[task.id] = task;
@@ -35,7 +42,7 @@ class Tasks {
         console.log('');
         for(let i=1; i<=this.listArr.length; i++){
             let task = this.listArr[i-1];
-            let status = task.completed ? chalk.cyan(task.completed) : chalk.magenta('Pendiente');
+            let status = task.completed ? chalk.cyan('Completada') : chalk.magenta('Pendiente');
 
             console.log(`${chalk.cyan( `${i}.`)} ${task.description} :: ${status} `);
         }
@@ -56,6 +63,25 @@ class Tasks {
             console.log(`${i} ${task.description} :: ${status} `);
         })
         console.log('');
+    }
+
+    toggleCompleted(ids = []){
+
+        ids.forEach( id => {
+
+            const task = this._list[id]
+
+            if(!task.completed) {
+                task.completed = new Date().toISOString()
+            }
+        })
+
+        this.listArr.forEach( task => {
+
+            if( !ids.includes(task.id) ){
+                this._list[task.id].completed = null;
+            }
+        })
     }
 }
 

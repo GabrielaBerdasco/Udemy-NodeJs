@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 
 //import { showMessages, pause } from './helpers/messages.js'
-import { inquirerMenu, pause, readInput } from './helpers/inquirer.js'
+import { inquirerMenu, pause, readInput, deleteTaskFromList, confirm, checkList } from './helpers/inquirer.js'
 import Tasks from './models/tasks.js'
 import { saveFile, readDB } from './helpers/saveFile.js'
 
@@ -37,7 +37,19 @@ const main = async() => {
             case '4':
                 tasks.listCompleted(false)
                 break;
+            case '5':
+                const ids = await checkList(tasks.listArr)
+                tasks.toggleCompleted(ids)
+                break;
+            case '6':
+                const id = await deleteTaskFromList(tasks.listArr)
 
+                if( id !== '0'){
+                    const confirmation = await confirm('¿Está seguro que desea borrar la tarea?')
+                    await (confirmation) && (tasks.deleteTask( id ))
+                }
+
+                break;
         }   
 
 
